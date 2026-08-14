@@ -15,7 +15,7 @@ mkdir -p races/2026-11-08-fukuoka-marathon
 cp templates/* races/2026-11-08-fukuoka-marathon/
 ```
 
-- `plan.md`: 期分け練習計画（週次メニュー）
+- `plan.md`: 期分け練習計画（期ごとの方針と週あたりの目安レンジ）
 - `results.csv`: 1走行ごとの記録（Nike Run Club等から抽出した数値を追記）
 - `splits.csv`: km単位のスプリット記録
 - `evaluations.md`: 練習ごとの評価ログ

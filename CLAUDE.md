@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 各ファイルの役割とデータ規約
 
-- `plan.md`: ベース期／ビルド期／ピーク期／テーパー期の期分けと週次メニュー
+- `plan.md`: ベース期／ビルド期／ピーク期／テーパー期の期分けと、期ごとの方針・週あたりの目安レンジ（週の回数／週間距離／ロング走の距離）。曜日単位のメニューは持たない
 - `results.csv`: 1走行1行のサマリー（`date, start_time, end_time, distance_km, avg_pace_sec, best_pace_sec, running_time_sec, elapsed_time_sec, calories_kcal, avg_cadence_spm, elevation_gain_m, elevation_loss_m, avg_hr_bpm, max_hr_bpm`）。時間・ペースは秒数など機械可読な数値のみで保存し、`6'23"` のような表示用フォーマット文字列は持たない
 - `splits.csv`: km単位のスプリット（`date, km, split_pace_sec, pace_diff_sec, elevation_change_m, hr_bpm`）。`date` で `results.csv` の行と紐付ける
 - `evaluations.md`: 日付ごとに追記する練習評価ログ。各エントリは「計画照合」「目標に対する進捗」「体調・回復度・怪我リスク」「次回メニュー提案」の4観点で記述する
