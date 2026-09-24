@@ -18,6 +18,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `splits.csv`: km単位のスプリット（`date, km, split_pace_sec, pace_diff_sec, elevation_change_m, hr_bpm`）。`date` で `results.csv` の行と紐付ける
 - `evaluations.md`: 日付ごとに追記する練習評価ログ。各エントリは「計画照合」「目標に対する進捗」「体調・回復度・怪我リスク」「次回メニュー提案」の4観点で記述する
 
+## ブランチ運用
+
+作業は `main` ブランチで直接行い、コミット・pushも `main` に対して行う。作業用ブランチやPRは作成しない。
+
 ## 運用ワークフロー
 
 Nike Run Club等の練習記録のスクリーンショットや文字起こしを渡された場合、値を抽出して該当大会ディレクトリの `results.csv` / `splits.csv` に追記し、その場で `evaluations.md` に評価コメントを追記するところまでを一気通貫で行う。
