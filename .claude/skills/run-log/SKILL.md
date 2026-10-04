@@ -83,6 +83,8 @@ description: Nike Run Club等のランニング記録のスクリーンショッ
 
 Step 3〜5で変更した `results.csv` / `splits.csv` / `evaluations.md` をコミットする。コミットメッセージはConventional Commits形式（`feat: ...`）で、対象日付と内容が分かる一文とする。ユーザーから明示的な停止指示がある場合を除き、都度の承認を待たずにコミットまで完了させる。
 
+コミット・pushは必ず `main` ブランチに対して行う。セッション起動時に別の作業ブランチが指定されていても `main` を使う（`CLAUDE.md` の「ブランチ運用」を参照）。
+
 ## 参照ファイル
 
 - `CLAUDE.md`: プロジェクト全体の構成とデータ規約
