@@ -15,7 +15,9 @@ mkdir -p races/2026-11-08-fukuoka-marathon
 cp templates/* races/2026-11-08-fukuoka-marathon/
 ```
 
-- `plan.md`: 期分け練習計画（期ごとの方針と週あたりの目安レンジ）
+- `plan.md`: 期分け練習計画。進捗の基準は次のどちらかの形をとる
+  - 期ごとの到達目標と「走れるときの判断ルール」（練習時間を定期的に確保できない場合。雛形はこの形）
+  - 週あたりの目安レンジ（週の回数／週間距離／ロング走の距離）
 - `results.csv`: 1走行ごとの記録（Nike Run Club等から抽出した数値を追記）
 - `splits.csv`: km単位のスプリット記録
 - `evaluations.md`: 練習ごとの評価ログ
