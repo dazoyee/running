@@ -26,7 +26,7 @@ description: Nike Run Club等のランニング記録のスクリーンショッ
 
 **サマリー（1走行につき1組）**
 
-`date, start_time, end_time, distance_km, avg_pace_sec, best_pace_sec, running_time_sec, elapsed_time_sec, calories_kcal, avg_cadence_spm, elevation_gain_m, elevation_loss_m, avg_hr_bpm, max_hr_bpm`
+`date, start_time, end_time, distance_km, avg_pace_sec, best_pace_sec, running_time_sec, elapsed_time_sec, calories_kcal, avg_cadence_spm, elevation_gain_m, elevation_loss_m, avg_hr_bpm, max_hr_bpm, shoe`
 
 **スプリット（km単位、画面にあれば取得。無ければスキップしてよい）**
 
@@ -39,6 +39,7 @@ description: Nike Run Club等のランニング記録のスクリーンショッ
 - スプリットの `start_time` はサマリーの `start_time` と同じ値を入れる（`date` と `start_time` の組で `results.csv` と紐付ける）
 - スプリットの `km` は区間の終点までの累計距離。1km区間は `1, 2, …`、最後の端数区間は走行距離そのものにする（画面上で `0.12km` と表示される8km目の次の区間は `8.12`）。最後の行の `km` がサマリーの `distance_km` と一致することを確認する
 - スプリットの `pace_diff_sec` は前kmとの差分。表示が `+0'14"` なら `+14`、`-0'06"` なら `-6` のように符号付き秒数にする
+- `shoe` は画面やテキストにシューズ名があれば、リポジトリ直下の `shoes.csv` の `name` と照合し、一致する `name` をそのまま入れる（表記ゆれは `shoes.csv` 側の表記に合わせる）。`shoes.csv` に無いシューズの場合は、追記前にユーザーに新しいシューズとして `shoes.csv` に登録するか確認する。シューズ情報が無ければ空欄にする
 - 読み取れない・画面に存在しない項目は空欄のままにする。値を推測して埋めない
 
 スプリットに歩きを含むとみられる区間（他のkmより大幅に遅い、経過時間とランニング時間の差が大きいなど）がある場合は、Step 5で評価を書く前に、その回の目的・状況（ファンラン、レース、途中で歩いた、信号待ちなど）をユーザーに確認する。CSVへの追記は確認の前に行ってよい。
@@ -106,12 +107,13 @@ description: Nike Run Club等のランニング記録のスクリーンショッ
 
 ## Step 6: 変更をコミットしてpushする
 
-Step 3〜5で変更した `results.csv` / `splits.csv` / `evaluations.md` をコミットし、`main` にpushする。コミットメッセージはConventional Commits形式（`feat: ...`）で、対象日付と内容が分かる一文とする。ユーザーから明示的な停止指示がある場合を除き、都度の承認を待たずにpushまで完了させる。
+Step 3〜5で変更した `results.csv` / `splits.csv` / `evaluations.md`（`shoes.csv` に登録した場合はそれも）をコミットし、`main` にpushする。コミットメッセージはConventional Commits形式（`feat: ...`）で、対象日付と内容が分かる一文とする。ユーザーから明示的な停止指示がある場合を除き、都度の承認を待たずにpushまで完了させる。
 
 コミット・pushは必ず `main` ブランチに対して行う。セッション起動時に別の作業ブランチが指定されていても `main` を使う（`CLAUDE.md` の「ブランチ運用」を参照）。
 
 ## 参照ファイル
 
 - `CLAUDE.md`: プロジェクト全体の構成とデータ規約
+- `shoes.csv`: 所有シューズのマスタ（`shoe` 列の値の正本）
 - `templates/results.csv` / `templates/splits.csv`: カラム構成の正本（大会ディレクトリ内のファイルもこれと同じ構成）
 - `templates/evaluations.md`: 評価エントリのテンプレート

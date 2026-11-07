@@ -8,15 +8,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## ディレクトリ構成
 
+- `shoes.csv`: 所有シューズのマスタ。シューズは大会をまたいで使うため、大会ディレクトリではなくリポジトリ直下に1つだけ置く
 - `templates/`: 雛形一式（`plan.md` / `results.csv` / `splits.csv` / `evaluations.md`）
-- `races/<年月日-大会名>/`: 大会ごとの実運用ファイル。大会名・開催日が決まった時点で `templates/` の内容をコピーして作成する。練習データは大会ごとに完全分離し、大会をまたぐ通しログは持たない
+- `races/<年月日-大会名>/`: 大会ごとの実運用ファイル。大会名・開催日が決まった時点で `templates/` の内容をコピーして作成する。練習データは大会ごとに完全分離し、大会をまたぐ通しログは持たない（`shoes.csv` は走行ログではなく所有物のマスタなので例外）
 
 ## 各ファイルの役割とデータ規約
 
 - `plan.md`: ベース期／ビルド期／ピーク期／テーパー期の期分けと、期ごとの方針。曜日単位のメニューは持たない。進捗の基準は大会ごとに次のどちらかの形をとる
   - 期ごとの到達目標と「走れるときの判断ルール」（練習時間を定期的に確保できない場合）。週単位の目安は持たない。`templates/plan.md` はこの形
   - 週あたりの目安レンジ（週の回数／週間距離／ロング走の距離）。練習時間を定期的に確保できる場合に、大会ごとの `plan.md` をこの形に書き換えて使う
-- `results.csv`: 1走行1行のサマリー（`date, start_time, end_time, distance_km, avg_pace_sec, best_pace_sec, running_time_sec, elapsed_time_sec, calories_kcal, avg_cadence_spm, elevation_gain_m, elevation_loss_m, avg_hr_bpm, max_hr_bpm`）。時間・ペースは秒数など機械可読な数値のみで保存し、`6'23"` のような表示用フォーマット文字列は持たない。高低差は上りを正、下りを負の数で記録する（`elevation_gain_m=98`、`elevation_loss_m=-95`）
+- `results.csv`: 1走行1行のサマリー（`date, start_time, end_time, distance_km, avg_pace_sec, best_pace_sec, running_time_sec, elapsed_time_sec, calories_kcal, avg_cadence_spm, elevation_gain_m, elevation_loss_m, avg_hr_bpm, max_hr_bpm, shoe`）。時間・ペースは秒数など機械可読な数値のみで保存し、`6'23"` のような表示用フォーマット文字列は持たない。高低差は上りを正、下りを負の数で記録する（`elevation_gain_m=98`、`elevation_loss_m=-95`）
+  - `shoe` はその走行で履いたシューズで、`shoes.csv` の `name` と完全一致する文字列を入れる。不明な場合は空欄
+- `shoes.csv`: 1足1行（`name, brand, baseline_date, baseline_km`）。`baseline_km` は `baseline_date` 時点の累計走行距離（Nike Run Club等のシューズ記録から転記した値）。現在の累計距離は `baseline_km` に、全大会ディレクトリの `results.csv` のうち `date` が `baseline_date` より後かつ `shoe` が一致する行の `distance_km` を足して求める。シューズを買い足したら行を追加する
 - `splits.csv`: km単位のスプリット（`date, start_time, km, split_pace_sec, pace_diff_sec, elevation_change_m, hr_bpm`）。`date` と `start_time` の組で `results.csv` の行と紐付ける（同じ日に複数回走っても区別できるようにするため）
   - `km` はその区間の終点までの累計距離。1km区間は `1, 2, …`、最後の端数区間は走行距離そのもの（8.12km走った場合、8km目の次の行は `8.12`）。最後の行の `km` は `results.csv` の `distance_km` と一致する
   - `elevation_change_m` は区間の始点と終点の差で、上りを正、下りを負の数で記録する
